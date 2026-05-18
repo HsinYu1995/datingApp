@@ -43,3 +43,8 @@ test('Start Over resets to first card', async ({ mainApp }) => {
   await expect(mainApp.counter()).toHaveText('1 / 5');
   await expect(mainApp.cardName()).toHaveText('Sophia Chen');
 });
+
+test('header shows user email and Logout button', async ({ mainApp }) => {
+  await expect(mainApp.headerEmail()).toHaveText('test@example.com');
+  await expect(mainApp.logoutButton()).toBeVisible();
+});
