@@ -12,3 +12,15 @@ test('renders first profile card', async ({ mainApp }) => {
 test('shows correct counter', async ({ mainApp }) => {
   await expect(mainApp.counter()).toHaveText('1 / 5');
 });
+
+test('Like advances to next card', async ({ mainApp }) => {
+  await mainApp.like();
+  await expect(mainApp.counter()).toHaveText('2 / 5');
+  await expect(mainApp.cardName()).not.toHaveText('Sophia Chen');
+});
+
+test('Pass advances to next card', async ({ mainApp }) => {
+  await mainApp.pass();
+  await expect(mainApp.counter()).toHaveText('2 / 5');
+  await expect(mainApp.cardName()).not.toHaveText('Sophia Chen');
+});
