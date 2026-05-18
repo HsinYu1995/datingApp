@@ -19,6 +19,9 @@ export const test = base.extend<Fixtures>({
         body: JSON.stringify({ email: 'test@example.com' }),
       })
     );
+    await page.route('**/api/v1/auth/logout', (route) =>
+      route.fulfill({ status: 204 })
+    );
     const mainApp = new MainAppPage(page);
     await mainApp.goto();
     await use(mainApp);

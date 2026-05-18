@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class MainAppPage {
   constructor(public page: Page) {}
@@ -18,7 +18,7 @@ export class MainAppPage {
 
   async goto() {
     await this.page.goto('/');
-    await this.page.waitForLoadState('networkidle');
+    await this.counter().or(this.emptyMessage()).waitFor({ state: 'visible' });
   }
 
   async like() {

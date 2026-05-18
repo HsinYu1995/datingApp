@@ -1,5 +1,4 @@
-import { expect } from '@playwright/test';
-import { test } from './fixtures/auth';
+import { test, expect } from './fixtures/auth';
 
 test('renders first profile card', async ({ mainApp }) => {
   await expect(mainApp.cardName()).toHaveText('Sophia Chen');
@@ -29,6 +28,8 @@ test('shows empty state after last card', async ({ mainApp }) => {
   for (let i = 0; i < 4; i++) {
     await mainApp.like();
   }
+  // like() polls .card-counter for changes; on the 5th swipe the counter
+  // leaves the DOM entirely, so we click directly and wait for empty state
   await mainApp.likeButton().click();
   await expect(mainApp.emptyMessage()).toContainText("You've seen everyone!");
 });
@@ -37,6 +38,8 @@ test('Start Over resets to first card', async ({ mainApp }) => {
   for (let i = 0; i < 4; i++) {
     await mainApp.like();
   }
+  // like() polls .card-counter for changes; on the 5th swipe the counter
+  // leaves the DOM entirely, so we click directly and wait for empty state
   await mainApp.likeButton().click();
   await expect(mainApp.emptyMessage()).toBeVisible();
   await mainApp.startOver();
